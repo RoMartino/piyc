@@ -91,8 +91,8 @@ module tt_um_RoMartino_piyc (
   localparam [5:0] GREEN = {2'b00, 2'b11, 2'b00};
   localparam [5:0] RED = {2'b11, 2'b00, 2'b00};
 
-  // Glyph definitions (8x8)
-  localparam [7:0] LEFT_GLYPH[0:7] = '{
+  // Each glyph is 8 rows of 8 bits, top row first.
+  localparam [63:0] LEFT_GLYPH = {
       8'b00010000,
       8'b00110000,
       8'b01110000,
@@ -102,7 +102,8 @@ module tt_um_RoMartino_piyc (
       8'b00010000,
       8'b00000000
   };
-  localparam [7:0] RIGHT_GLYPH[0:7] = '{
+
+  localparam [63:0] RIGHT_GLYPH = {
       8'b00001000,
       8'b00001100,
       8'b00001110,
@@ -112,7 +113,8 @@ module tt_um_RoMartino_piyc (
       8'b00001000,
       8'b00000000
   };
-  localparam [7:0] UP_GLYPH[0:7] = '{
+
+  localparam [63:0] UP_GLYPH = {
       8'b00010000,
       8'b00111000,
       8'b01111100,
@@ -122,7 +124,8 @@ module tt_um_RoMartino_piyc (
       8'b00010000,
       8'b00010000
   };
-  localparam [7:0] DOWN_GLYPH[0:7] = '{
+
+  localparam [63:0] DOWN_GLYPH = {
       8'b00010000,
       8'b00010000,
       8'b00010000,
@@ -132,7 +135,8 @@ module tt_um_RoMartino_piyc (
       8'b00111000,
       8'b00010000
   };
-  localparam [7:0] A_GLYPH[0:7] = '{
+
+  localparam [63:0] A_GLYPH = {
       8'b00111100,
       8'b01100110,
       8'b01100110,
@@ -142,7 +146,8 @@ module tt_um_RoMartino_piyc (
       8'b01100110,
       8'b00000000
   };
-  localparam [7:0] B_GLYPH[0:7] = '{
+
+  localparam [63:0] B_GLYPH = {
       8'b01111100,
       8'b01100110,
       8'b01100110,
@@ -152,7 +157,8 @@ module tt_um_RoMartino_piyc (
       8'b01111100,
       8'b00000000
   };
-  localparam [7:0] X_GLYPH[0:7] = '{
+
+  localparam [63:0] X_GLYPH = {
       8'b11000011,
       8'b01100110,
       8'b00111100,
@@ -162,7 +168,8 @@ module tt_um_RoMartino_piyc (
       8'b01100110,
       8'b11000011
   };
-  localparam [7:0] Y_GLYPH[0:7] = '{
+
+  localparam [63:0] Y_GLYPH = {
       8'b11000011,
       8'b01100110,
       8'b00111100,
@@ -172,7 +179,8 @@ module tt_um_RoMartino_piyc (
       8'b00011000,
       8'b00011000
   };
-  localparam [7:0] L_GLYPH[0:7] = '{
+
+  localparam [63:0] L_GLYPH = {
       8'b01100000,
       8'b01100000,
       8'b01100000,
@@ -182,7 +190,8 @@ module tt_um_RoMartino_piyc (
       8'b01111110,
       8'b00000000
   };
-  localparam [7:0] R_GLYPH[0:7] = '{
+
+  localparam [63:0] R_GLYPH = {
       8'b01111100,
       8'b01100110,
       8'b01100110,
@@ -192,7 +201,8 @@ module tt_um_RoMartino_piyc (
       8'b01100110,
       8'b00000000
   };
-  localparam [7:0] SELECT_GLYPH[0:7] = '{
+
+  localparam [63:0] SELECT_GLYPH = {
       8'b00011000,
       8'b00100100,
       8'b01000010,
@@ -202,7 +212,8 @@ module tt_um_RoMartino_piyc (
       8'b00100100,
       8'b00011000
   };
-  localparam [7:0] START_GLYPH[0:7] = '{
+
+  localparam [63:0] START_GLYPH = {
       8'b00111100,
       8'b01000000,
       8'b01000000,
@@ -212,7 +223,7 @@ module tt_um_RoMartino_piyc (
       8'b00000100,
       8'b01111000
   };
-
+  
   // Glyph positions
   localparam LEFT_X = 48, LEFT_Y = 240;
   localparam RIGHT_X = 144, RIGHT_Y = 240;
@@ -269,7 +280,7 @@ module tt_um_RoMartino_piyc (
   // Scaled glyph activation function (2x size)
   function glyph_active;
     input [9:0] x0, y0;
-    input [7:0] glyph[0:7];
+    input [7:0] glyph;
     reg [9:0] x_rel, y_rel;
     reg [7:0] row;
     begin
